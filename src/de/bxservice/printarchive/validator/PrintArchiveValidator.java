@@ -31,7 +31,7 @@ import org.adempiere.webui.adwindow.IADTabbox;
 import org.adempiere.webui.adwindow.validator.WindowValidator;
 import org.adempiere.webui.adwindow.validator.WindowValidatorEvent;
 import org.adempiere.webui.adwindow.validator.WindowValidatorEventType;
-import org.adempiere.webui.window.Dialog;
+import org.adempiere.webui.window.FDialog;
 import org.osgi.service.component.annotations.Component;
 
 import de.bxservice.printarchive.utils.PrintArchiveUtils;
@@ -57,9 +57,10 @@ public class PrintArchiveValidator implements WindowValidator {
 
 			if (printArchiveUtils.hasArchivedDocuments()) {
 				if (printArchiveUtils.showError())
-					Dialog.error(event.getWindow().getADWindowContent().getWindowNo(), "BXS_ArchivedDocumentError");
+					FDialog.error(event.getWindow().getADWindowContent().getWindowNo(), "BXS_ArchivedDocumentError");
 				else if (printArchiveUtils.showWarning())
-					Dialog.ask(event.getWindow().getADWindowContent().getWindowNo(), "BXS_ArchivedDocument", callback);
+					FDialog.ask(event.getWindow().getADWindowContent().getWindowNo(), event.getWindow().getADWindowContent().getComponent(),"BXS_ArchivedDocument",null, callback);
+					//FDialog.ask(event.getWindow().getADWindowContent().getWindowNo(), "BXS_ArchivedDocument", callback);
 				
 				callback.onCallback(Boolean.FALSE);
 			} else
